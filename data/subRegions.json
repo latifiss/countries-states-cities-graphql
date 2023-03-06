@@ -1,0 +1,74 @@
+[
+    {
+        "code": "NAF",
+        "name": "Northern Africa"
+    },
+    {
+        "code": "WAF",
+        "name": "Western Africa"
+    },
+    {
+        "code": "MAF",
+        "name": "Middle Africa"
+    },
+    {
+        "code": "SAF",
+        "name": "Southern Africa"
+    },
+    {
+        "code": "EAF",
+        "name": "Eastern Africa"
+    },
+    {
+        "code": "NEU",
+        "name": "Northern Europe"
+    },
+    {
+        "code": "WEU",
+        "name": "Western Europe"
+    },
+    {
+        "code": "SEU",
+        "name": "Southern Europe"
+    },
+    {
+        "code": "EEU",
+        "name": "Eastern Europe"
+    },
+    {
+        "code": "SEA",
+        "name": "South-Eastern Asia"
+    },
+    {
+        "code": "EAS",
+        "name": "Eastern Asia"
+    },
+    {
+        "code": "WAS",
+        "name": "Western Asia"
+    },
+    {
+        "code": "SAS",
+        "name": "Southern Asia"
+    },
+    {
+        "code": "CAS",
+        "name": "Central Asia"
+    },
+    {
+        "code": "NAM",
+        "name": "Northern America"
+    },
+    {
+        "code": "SAM",
+        "name": "South America"
+    },
+    {
+        "code": "CAR",
+        "name": "Caribbean"
+    },
+    {
+        "code": "ANZ",
+        "name": "Australia and New Zealand"
+    }
+]
