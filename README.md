@@ -6,7 +6,7 @@
 
 A free GraphQL API for information about countries, states and cities. This project uses data obtained from the [countries-states-cities-database](https://github.com/dr5hn/countries-states-cities-database) by [Darshan Gada](https://github.com/dr5hn) and personally gathered data.
 
-- Get a list of `countries` with `ISO2`, `ISO3`, `Phonecode`, `Capital`, `Currency`, `Flag` etc.
+- Get a list of `countries` with `iso2`, `iso3`, `phone_code`, `capital`, `currency`, `emoji` etc.
 - Get a list of `countries` by Regions or SubRegions
 - Get a list `States` with `name`, `longitude`, `latitude`, `cities`, etc
 
@@ -631,20 +631,6 @@ The above GraphQL query will produce the following JSON response:
   }
 }
 ```
-
-## Docs
-
-Read about all of the fields available and view example queries in [the docs](https://trevorblades.github.io/countries). You can also check out [the playground](https://countries.trevorblades.com) to explore the schema and test out some queries.
-
-## Examples
-
-- [React](./examples/react)
-- [React Native](https://github.com/muhzi4u/country-directory-app)
-- [ReasonML](https://medium.com/@idkjs/reasonml-and-graphql-without-graphql-part-1-192c2e9e349c)
-- [Country quiz app](https://github.com/byrichardpowell/Country-Quiz) (React, TypeScript)
-- [Python](./examples/python)
-- [Seed](https://github.com/seed-rs/seed/tree/master/examples/graphql)
-- [Country Searcher](https://github.com/FranP-code/country-searcher)
 
 ## License
 
