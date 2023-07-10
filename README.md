@@ -4,7 +4,7 @@
 
 <h1 align="center">CountryStateCity GraphQL API</h1>
 
-A free GraphQL API for information about countries, states and cities. This project uses data obtained from the [countries-states-cities-database](https://github.com/dr5hn/countries-states-cities-database) by [Darshan Gada](https://github.com/dr5hn) and personally gathered data.
+A 🆓free GraphQL API for information about countries🇭🇲, states🌐 and cities🏙. This project uses data obtained from the [countries-states-cities-database](https://github.com/dr5hn/countries-states-cities-database) by 👨‍💻[Darshan Gada](https://github.com/dr5hn) and personally gathered data🖋.
 
 - Get a list of `countries` with `iso2`, `iso3`, `phone_code`, `capital`, `currency`, `emoji` etc.
 - Get a list of `countries` by Regions or SubRegions
@@ -15,7 +15,7 @@ A free GraphQL API for information about countries, states and cities. This proj
 - [📦 Packages](#-packages)
 - [📙 Documents](#-documents)
 - [Collect statistics on the use of open source](#collect-statistics-on-the-use-of-open-source)
-- [📅 Queries](#-queries)
+- [📦 Queries](#-queries)
   - [✨ Monthly, Weekly, Daily and Various View Types](#-monthly-weekly-daily-and-various-view-types)
   - [Easy to Use: Dragging and Resizing a Schedule](#easy-to-use-dragging-and-resizing-a-schedule)
 
