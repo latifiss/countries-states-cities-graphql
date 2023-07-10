@@ -10,11 +10,20 @@ A free GraphQL API for information about countries, states and cities. This proj
 - Get a list of `countries` by Regions or SubRegions
 - Get a list `States` with `name`, `longitude`, `latitude`, `cities`, etc
 
+## 🚩 Table of Contents
+
+- [📦 Packages](#-packages)
+- [📙 Documents](#-documents)
+- [Collect statistics on the use of open source](#collect-statistics-on-the-use-of-open-source)
+- [📅 Queries](#-queries)
+  - [✨ Monthly, Weekly, Daily and Various View Types](#-monthly-weekly-daily-and-various-view-types)
+  - [Easy to Use: Dragging and Resizing a Schedule](#easy-to-use-dragging-and-resizing-a-schedule)
+
 ## Docs
 
 Read about all of the fields available and view example queries in [the docs](http://localhost:4000/). You can also check out [the playground](http://localhost:4000/) to explore the schema and test out some queries.
 
-## Example queries
+## 📦 Queries
 
 ### Get a list of states by country
 
