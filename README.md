@@ -16,8 +16,20 @@ A 🆓free GraphQL API for information about countries🇭🇲, states🌐 and c
 - [📙 Documents](#-documents)
 - [Collect statistics on the use of open source](#collect-statistics-on-the-use-of-open-source)
 - [📦 Queries](#-queries)
-  - [✨ Monthly, Weekly, Daily and Various View Types](#-monthly-weekly-daily-and-various-view-types)
-  - [Easy to Use: Dragging and Resizing a Schedule](#easy-to-use-dragging-and-resizing-a-schedule)
+  - [Get All Countries](#-get-all-countries)
+  - [Get Country Details](#-get-country-details)
+  - [Get Countries By Region](#-get-countries-by-region)
+  - [Get Countries By SubRegion](#-get-countries-by-subregion)
+  - [Get All States](#-get-all-states)
+  - [Get States By Country](#-get-states-by-country)
+  - [Get State Details](#-get-state-details)
+  - [Get City By Country](#-get-city-by-country)
+  - [Get City By State](#-get-city-by-state)
+  - [Get City Details](#-get-city-details)
+- [🎨 Examples](#-examples)
+- [💬 Contributing](#-contributing)
+- [🚀 Used By](#-used-by)
+- [📜 License](#-license)
 
 ## Docs
 
@@ -641,6 +653,20 @@ The above GraphQL query will produce the following JSON response:
 }
 ```
 
-## License
+## 🎨 Examples
 
-[MIT](./LICENSE)
+## 💬 Contributing
+
+- [Code of Conduct](/CODE_OF_CONDUCT.md)
+- [Contributing Guidelines](/CONTRIBUTING.md)
+- [Commit Message Convention](/docs/COMMIT_MESSAGE_CONVENTION.md)
+- [Issue Guidelines](/docs/ISSUE_TEMPLATE.md)
+
+## 🚀 Used By
+
+- [NHN Dooray! - Collaboration Service (Project, Messenger, Mail, Calendar, Drive, Wiki, Contacts)](https://dooray.com)
+- [NCP - Commerce Platform](https://www.e-ncp.com/)
+
+## 📜 License
+
+This software is licensed under the [MIT](/LICENSE) © [NHN Cloud](https://github.com/nhn).
