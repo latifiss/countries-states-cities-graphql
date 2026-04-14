@@ -1,14 +1,29 @@
-import { ApolloServer } from "apollo-server";
-import { resolvers, typeDefs } from "./schema.js";
+import { ApolloServer } from 'apollo-server';
+import { typeDefs, resolvers } from './schema.js';
+import { connectDB } from './database/db.js';
+import dotenv from 'dotenv';
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  introspection: true,
-  playground: true,
-});
+dotenv.config();
 
-console.clear();
-server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
-});
+async function startServer() {
+  try {
+    await connectDB();
+
+    const server = new ApolloServer({
+      typeDefs,
+      resolvers,
+      context: async () => {
+        return {};
+      },
+    });
+
+    const { url } = await server.listen({ port: process.env.PORT || 4000 });
+    console.log(`🚀 Server ready at ${url}`);
+    console.log(`📊 GraphQL Playground available at ${url}`);
+  } catch (error) {
+    console.error('Failed to start server:', error);
+    process.exit(1);
+  }
+}
+
+startServer();
