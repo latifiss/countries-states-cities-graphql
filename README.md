@@ -1,4 +1,3 @@
-````markdown
 <p align="center">
   <img src="./assets/logo.svg" alt="globe" width="150">
 </p>
@@ -59,7 +58,7 @@ CountriesQL API provides seamless access to comprehensive geographic data includ
 
 ### Installation
 
-```bash
+````bash
 # Clone the repository
 git clone https://github.com/latifiss/countries-states-cities-graphql.git
 
@@ -71,8 +70,6 @@ npm install
 
 # Set up environment variables
 cp .env.example .env
-```
-````
 
 ### Configuration
 
@@ -81,7 +78,7 @@ Create a `.env` file in the root directory:
 ```env
 MONGO_DB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/data
 PORT=4000
-```
+````
 
 ### Database Migration
 
