@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/logo.svg" alt="globe" width="150">
+  <img src="./assets/logo.svg" alt="globe" width="250">
 </p>
 
 <h1 align="center">CountriesQL API</h1>
