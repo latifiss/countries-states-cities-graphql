@@ -1,10 +1,11 @@
 {
   "scripts": {
-    "start": "nodemon index.js",
-    "pretest": "eslint index.js",
+    "start": "node index.js",
     "test": "node --test",
     "fix": "eslint --fix .",
-    "check": "node --check index.js && node --check schema.js && node --check lib/cache.js"
+    "check": "node --check index.js && node --check database/db.js && node --check lib/cache.js && node --check schema.js && node --check migrate.js",
+    "dev": "nodemon index.js",
+    "migrate": "node migrate.js"
   },
   "type": "module",
   "dependencies": {
@@ -24,5 +25,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "nodemon": "^2.0.19",
     "prettier": "2.7.1"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
