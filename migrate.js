@@ -1,8 +1,11 @@
 import 'dotenv/config';
 import { MongoClient } from 'mongodb';
-import countries from './data/countries.json' with { type: 'json' };
-import states from './data/states.json' with { type: 'json' };
-import cities from './data/cities.json' with { type: 'json' };
+import { readFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+
+const directory = path.dirname(fileURLToPath(import.meta.url));
+const loadJson = async (name) => JSON.parse(await readFile(path.join(directory, 'data', name), 'utf8'));
 
 async function upsertCollection(db, name, documents) {
   if (!Array.isArray(documents) || documents.length === 0) {
@@ -27,6 +30,11 @@ async function migrate() {
   const uri = process.env.MONGO_DB_URI;
   if (!uri) throw new Error('MONGO_DB_URI is required.');
 
+  const [countries, states, cities] = await Promise.all([
+    loadJson('countries.json'),
+    loadJson('states.json'),
+    loadJson('cities.json'),
+  ]);
   const client = new MongoClient(uri, {
     appName: 'CountriesQL-Migration',
     serverSelectionTimeoutMS: 10000,
