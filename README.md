@@ -47,6 +47,7 @@ CountriesQL API provides seamless access to comprehensive geographic data includ
 - **Flexible Queries** - Filter by region, subregion, country name, state name, and more
 - **Case-Insensitive Search** - Natural querying without worrying about case sensitivity
 - **Production Ready** - MongoDB backend with optimized indexes for lightning-fast queries
+- **Optional Redis caching** - Upstash Redis REST cache for GraphQL query results, with automatic MongoDB fallback whenever Redis is unavailable
 
 ## 🚀 Quick Start
 
@@ -80,6 +81,15 @@ cp .env.example .env
 ```
 
 Then edit `.env` locally with your own MongoDB connection string and port. Never paste real credentials into source files, README examples, screenshots, or commits.
+
+### Optional Upstash Redis Cache
+
+Caching is optional. Create a Redis database in [Upstash](https://upstash.com/), then add its **REST URL** and **REST token** to your deployment environment (or local `.env`):
+
+- `UPSTASH_REDIS_REST_URL`
+- `UPSTASH_REDIS_REST_TOKEN`
+
+When both values are configured, GraphQL query results are cached for one hour. If either value is missing, Redis is unreachable, a request times out, or a cache response cannot be parsed, the API transparently runs the normal MongoDB resolver. Redis is never required for the API to start or answer requests. Cache entries expire automatically; after changing geographic data, wait for the one-hour TTL or delete the relevant keys in Upstash.
 
 ### Database Migration
 
@@ -206,6 +216,7 @@ railway up
 
 - **GraphQL Server**: Apollo Server
 - **Database**: MongoDB Atlas
+- **Cache**: Upstash Redis (optional, REST API with graceful fallback)
 - **Runtime**: Node.js
 - **ODM**: MongoDB Native Driver
 
