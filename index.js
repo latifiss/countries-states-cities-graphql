@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { ApolloServer } from 'apollo-server';
+import { GraphQLError } from 'graphql';
 import { typeDefs, resolvers } from './schema.js';
 import { connectDB, closeDB } from './database/db.js';
 
@@ -13,12 +14,17 @@ if (!Number.isInteger(port) || port < 1 || port > 65535) {
 function depthLimitRule(maxDepth) {
   return (context) => {
     let depth = 0;
+    let fieldCount = 0;
     return {
       Field: {
-        enter(node) {
+        enter() {
           depth += 1;
+          fieldCount += 1;
           if (depth > maxDepth) {
-            context.reportError(new Error(`Query exceeds the maximum depth of ${maxDepth}.`));
+            context.reportError(new GraphQLError(`Query exceeds the maximum depth of ${maxDepth}.`));
+          }
+          if (fieldCount > 100) {
+            context.reportError(new GraphQLError('Query exceeds the maximum of 100 fields.'));
           }
         },
         leave() {
