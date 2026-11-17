@@ -2,8 +2,9 @@
   "scripts": {
     "start": "nodemon index.js",
     "pretest": "eslint index.js",
-    "test": "echo \"Error: no test specified\" && exit",
-    "fix": "eslint --fix ."
+    "test": "node --test",
+    "fix": "eslint --fix .",
+    "check": "node --check index.js && node --check schema.js && node --check lib/cache.js"
   },
   "type": "module",
   "dependencies": {
