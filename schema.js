@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { gql } from 'apollo-server';
 import { getDB } from './database/db.js';
+import { withCache } from './lib/cache.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -227,3 +228,13 @@ export const resolvers = {
     },
   },
 };
+
+
+// Cache successful query results for geographic data. Cache failures are handled
+// inside withCache and never prevent the MongoDB resolver from running.
+for (const [queryName, resolver] of Object.entries(resolvers.Query)) {
+  resolvers.Query[queryName] = (parent, args, context, info) =>
+    withCache(`graphql:${queryName}`, args ?? {}, 3600, () =>
+      resolver(parent, args, context, info),
+    );
+}
