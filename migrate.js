@@ -1,65 +1,51 @@
-require('dotenv').config();
-const { MongoClient } = require('mongodb');
-const countries = require('./data/countries.json');
-const states = require('./data/states.json');
-const cities = require('./data/cities.json');
+import 'dotenv/config';
+import { MongoClient } from 'mongodb';
+import countries from './data/countries.json' with { type: 'json' };
+import states from './data/states.json' with { type: 'json' };
+import cities from './data/cities.json' with { type: 'json' };
+
+async function upsertCollection(db, name, documents) {
+  if (!Array.isArray(documents) || documents.length === 0) {
+    throw new Error(`Refusing to migrate empty ${name} dataset.`);
+  }
+  const collection = db.collection(name);
+  const operations = documents.map((document) => ({
+    replaceOne: {
+      filter: { id: document.id },
+      replacement: document,
+      upsert: true,
+    },
+  }));
+
+  for (let offset = 0; offset < operations.length; offset += 500) {
+    await collection.bulkWrite(operations.slice(offset, offset + 500), { ordered: false });
+  }
+  console.log(`Upserted ${documents.length} records into ${name}.`);
+}
 
 async function migrate() {
-  let client;
+  const uri = process.env.MONGO_DB_URI;
+  if (!uri) throw new Error('MONGO_DB_URI is required.');
+
+  const client = new MongoClient(uri, {
+    appName: 'CountriesQL-Migration',
+    serverSelectionTimeoutMS: 10000,
+    maxPoolSize: 5,
+  });
+
   try {
-    const uri = process.env.MONGO_DB_URI;
-    if (!uri) {
-      throw new Error('MONGO_DB_URI is not defined in .env file');
-    }
-
-    console.log('📦 Starting migration to MongoDB...');
-    client = new MongoClient(uri);
     await client.connect();
-    console.log('✅ Connected to MongoDB');
-
-    const db = client.db('data');
-
-    const countriesCount = await db.collection('countries').countDocuments();
-    const statesCount = await db.collection('states').countDocuments();
-    const citiesCount = await db.collection('cities').countDocuments();
-
-    if (countriesCount > 0 || statesCount > 0 || citiesCount > 0) {
-      console.log(
-        '⚠️  Collections already have data. Skipping migration to avoid duplicates.',
-      );
-      console.log(
-        `Countries: ${countriesCount}, States: ${statesCount}, Cities: ${citiesCount}`,
-      );
-      return;
-    }
-
-    console.log(`📥 Inserting ${countries.length} countries...`);
-    await db.collection('countries').insertMany(countries);
-
-    console.log(`📥 Inserting ${states.length} states...`);
-    await db.collection('states').insertMany(states);
-
-    console.log(`📥 Inserting ${cities.length} cities...`);
-    await db.collection('cities').insertMany(cities);
-
-    console.log('🔍 Creating database indexes...');
-    await db.collection('countries').createIndex({ name: 1 });
-    await db.collection('countries').createIndex({ region: 1 });
-    await db.collection('states').createIndex({ name: 1 });
-    await db.collection('states').createIndex({ country_id: 1 });
-    await db.collection('cities').createIndex({ name: 1 });
-    await db.collection('cities').createIndex({ state_id: 1 });
-    await db.collection('cities').createIndex({ country_id: 1 });
-
-    console.log('✅ Migration completed successfully!');
-  } catch (error) {
-    console.error('❌ Migration failed:', error.message);
-    process.exit(1);
+    const db = client.db(process.env.MONGO_DB_NAME || 'data');
+    await upsertCollection(db, 'countries', countries);
+    await upsertCollection(db, 'states', states);
+    await upsertCollection(db, 'cities', cities);
+    console.log('Migration completed.');
   } finally {
-    if (client) {
-      await client.close();
-    }
+    await client.close();
   }
 }
 
-migrate();
+migrate().catch((error) => {
+  console.error('Migration failed:', error.message);
+  process.exitCode = 1;
+});
