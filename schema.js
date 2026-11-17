@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gql } from 'apollo-server';
+import { GraphQLError } from 'graphql';
 import { getDB } from './database/db.js';
 import { withCache } from './lib/cache.js';
 
