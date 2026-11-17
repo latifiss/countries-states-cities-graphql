@@ -73,12 +73,13 @@ cp .env.example .env
 
 ### Configuration
 
-Create a `.env` file in the root directory:
+Create your local `.env` file in the project root. The real `.env` file is ignored by Git and must never be committed. Start from the committed template:
 
-```env
-MONGO_DB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/data
-PORT=4000
-````
+```bash
+cp .env.example .env
+```
+
+Then edit `.env` locally with your own MongoDB connection string and port. Never paste real credentials into source files, README examples, screenshots, or commits.
 
 ### Database Migration
 
@@ -218,7 +219,8 @@ railway up
 ├── schema.js              # GraphQL type definitions & resolvers
 ├── schema.graphqls        # GraphQL schema definition
 ├── migrate.js             # Database migration script
-├── .env                   # Environment variables
+├── .env.example           # Safe environment variable template
+├── .env                   # Local-only secrets (gitignored)
 └── package.json           # Dependencies and scripts
 ```
 
