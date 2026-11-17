@@ -53,7 +53,7 @@ CountriesQL API provides seamless access to comprehensive geographic data includ
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
+- Node.js 20 or higher
 - MongoDB Atlas account (free tier available)
 - npm or yarn
 
@@ -82,6 +82,15 @@ cp .env.example .env
 
 Then edit `.env` locally with your own MongoDB connection string and port. Never paste real credentials into source files, README examples, screenshots, or commits.
 
+### Production notes
+
+- Set `NODE_ENV=production` in deployment to disable GraphQL Playground and introspection and suppress debug details.
+- Set `MONGO_DB_URI`, optionally `MONGO_DB_NAME`, and `PORT` in your deployment environment.
+- The server connects to MongoDB and verifies it with a ping before accepting traffic.
+- MongoDB indexes are ensured during startup. The migration command is idempotent and upserts records in batches.
+- The API applies a 1 MB request-body limit and a maximum GraphQL field depth of 10.
+- `npm start` runs the production server; `npm run dev` starts the development watcher; `npm run check` checks JavaScript syntax.
+
 ### Optional Upstash Redis Cache
 
 Caching is optional. Create a Redis database in [Upstash](https://upstash.com/), then add its **REST URL** and **REST token** to your deployment environment (or local `.env`):
@@ -102,7 +111,7 @@ npm run migrate
 ### Start the Server
 
 ```bash
-npm start
+npm run dev
 ```
 
 Your API will be available at `http://localhost:4000`
@@ -198,7 +207,7 @@ Your API will be available at `http://localhost:4000`
 4. Configure:
    - **Build Command**: `npm install`
    - **Start Command**: `node index.js`
-5. Add environment variable: `MONGO_DB_URI`
+5. Add `MONGO_DB_URI` and `NODE_ENV=production` environment variables. Add Upstash credentials if you want caching.
 6. Add your custom domain in Render settings
 7. Configure your domain's DNS with a CNAME record
 
@@ -217,13 +226,14 @@ railway up
 - **GraphQL Server**: Apollo Server
 - **Database**: MongoDB Atlas
 - **Cache**: Upstash Redis (optional, REST API with graceful fallback)
-- **Runtime**: Node.js
+- **Runtime**: Node.js 20+
+- **Operations**: graceful shutdown, MongoDB connection pooling, query depth limit, bounded request bodies, production-safe GraphQL settings
 - **ODM**: MongoDB Native Driver
 
 ## 📁 Project Structure
 
 ```
-├── database/
+├── lib/\n│   └── cache.js            # Optional Upstash cache with fallback\n├── database/
 │   └── db.js              # Database connection management
 ├── data/                  # JSON data files (for migration)
 ├── index.js               # Application entry point
